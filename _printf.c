@@ -1,15 +1,15 @@
 #include "main.h"
-#include <stdlib.h>
+#include <stdarg.h>
 
 /**
- * check_for_specifiers - checks if there is a valid format specifier
+ * check_specifiers - checks if there is a valid format specifier
  * @format: possible format specifier
- *
  * Return: pointer to valid function or NULL
  */
-static int (*check_for_specifiers(const char *format))(va_list)
+
+int (*check_specifiers(const char *format))(va_list)
 {
-	unsigned int i;
+	int i;
 	print_t p[] = {
 		{"c", print_c},
 		{"s", print_s},
@@ -40,9 +40,9 @@ static int (*check_for_specifiers(const char *format))(va_list)
 /**
  * _printf - prints anything
  * @format: list of argument types passed to the function
- *
  * Return: number of characters printed
  */
+
 int _printf(const char *format, ...)
 {
 	unsigned int i = 0, count = 0;
@@ -51,31 +51,37 @@ int _printf(const char *format, ...)
 
 	if (format == NULL)
 		return (-1);
+
 	va_start(valist, format);
-	while (format[i])
+	while (format && format[i])
 	{
-		for (; format[i] != '%' && format[i]; i++)
+		if (format[i] != '%')
 		{
 			_putchar(format[i]);
 			count++;
-		}
-		if (!format[i])
-			return (count);
-		f = check_for_specifiers(&format[i + 1]);
-		if (f != NULL)
-		{
-			count += f(valist);
-			i += 2;
+			i++;
 			continue;
 		}
-		if (!format[i + 1])
-			return (-1);
-		_putchar(format[i]);
-		count++;
-		if (format[i + 1] == '%')
-			i += 2;
 		else
-			i++;
+		{
+			if (format[i + 1] == '%')
+			{
+				_putchar('%');
+				count++;
+				i += 2;
+				continue;
+			}
+			else
+			{
+				f = check_specifiers(&format[i + 1]);
+				if (f == NULL)
+					return (-1);
+				i += 2;
+				count += f(valist);
+				continue;
+			}
+		}
+		i++;
 	}
 	va_end(valist);
 	return (count);
