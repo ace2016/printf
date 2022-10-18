@@ -10,14 +10,14 @@
 int print_X(va_list X)
 {
 	unsigned int a[8];
-	unsigned int s, e = 268435456, m, sum = 0;
+	unsigned int s = 1, e = 268435456, m, sum = 0;
 	char diff;
 	int count;
 
 	m = va_arg(X, unsigned int);
 	diff = 'A' - ':';
 	a[0] = m / e;
-	for (s = 1; s < 8; s++)
+	for (; s < 8; s++)
 	{
 		e /= 16;
 		a[s] = (m / e) % 16;

@@ -10,12 +10,12 @@
 int print_u(va_list u)
 {
 	unsigned int a[10];
-	unsigned int s, e = 1000000000, m, sum = 0;
+	unsigned int s = 1, e = 1000000000, m, sum = 0;
 	int count = 0;
 
 	m = va_arg(u, unsigned int);
 	a[0] = m / e;
-	for (s = 1; s < 10; s++)
+	for (; s < 10; s++)
 	{
 		e /= 10;
 		a[s] = (m / e) % 10;

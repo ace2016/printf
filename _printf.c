@@ -9,14 +9,14 @@
 
 int (*check_specifiers(const char *format))(va_list)
 {
-	int i;
+	int i = 0;
 	print_t p[] = {
 		{"c", print_c},
 		{"s", print_s},
 		{"i", print_i},
 		{"d", print_d},
-		{"u", print_u},
 		{"b", print_b},
+		{"u", print_u},
 		{"o", print_o},
 		{"x", print_x},
 		{"X", print_X},
@@ -27,7 +27,7 @@ int (*check_specifiers(const char *format))(va_list)
 		{NULL, NULL}
 	};
 
-	for (i = 0; p[i].t != NULL; i++)
+	for (; p[i].t != NULL; i++)
 	{
 		if (*(p[i].t) == *format)
 		{

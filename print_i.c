@@ -10,7 +10,7 @@
 int print_i(va_list i)
 {
 	int a[10];
-	int s, e = 1000000000, m, sum = 0, count = 0;
+	int s = 1, e = 1000000000, m, sum = 0, count = 0;
 
 	m = va_arg(i, int);
 	if (m < 0)
@@ -21,7 +21,7 @@ int print_i(va_list i)
 	}
 	a[0] = m / e;
 
-	for (s = 1; s < 10; s++)
+	for (; s < 10; s++)
 	{
 		e /= 10;
 		a[s] = (m / e) % 10;
