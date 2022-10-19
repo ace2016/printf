@@ -2,7 +2,8 @@
 
 /**
  * print_S - prints a string and nonprintable char ascii values
- * @S: string
+ * @valist: string
+ * @format: format
  * Return: number of characters printed
  */
 
@@ -11,6 +12,8 @@ int print_S(char *format, va_list valist)
 	unsigned int i = 0;
 	int count = 0;
 	char *str = va_arg(valist, char *);
+
+	(void)format;
 
 	if (str == NULL)
 		str = "(null)";
@@ -21,7 +24,6 @@ int print_S(char *format, va_list valist)
 			_putchar('\\');
 			_putchar('x');
 			count += 2;
-			count += prhex(valist);
 		}
 		else
 		{
