@@ -10,11 +10,12 @@
 int prstr(char *format, va_list valist)
 {
 	char *string = va_arg(valist, char *);
-	int sao;
+	int i = 0;
 	(void)format;
 
 	if (string == NULL)
 		string = "(null)";
-	sao = _puts(string);
-	return (sao);
+	while (string[i])
+		_putchar(string[i++]);
+	return (i);
 }

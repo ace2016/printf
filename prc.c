@@ -10,6 +10,7 @@
 int prc(char *format, va_list valist)
 {
 	(void)format;
+
 	_putchar(va_arg(valist, int));
 	return (1);
 }
