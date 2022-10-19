@@ -24,8 +24,6 @@ int (*specifier(char *format))(char *format, va_list)
 		{"%o", proct},
 		{"%p", printadr},
 		{"%R", print_R},
-		{"%b", print_b},
-		{"%S", print_S},
 		{"%u", print_u},
 		{NULL, NULL}
 	};

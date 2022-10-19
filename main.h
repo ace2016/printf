@@ -37,8 +37,6 @@ int proct(char *format, va_list);
 int prunsign(char *format, va_list);
 int printadr(char *format, va_list);
 int print_R(char *format, va_list);
-int print_S(char *format, va_list);
-int print_b(char *format, va_list);
 int print_u(char *format, va_list);
 
 #endif /* MAIN_H */
