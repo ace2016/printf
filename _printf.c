@@ -1,88 +1,51 @@
 #include "main.h"
-#include <stdarg.h>
 
 /**
- * check_specifiers - checks if there is a valid format specifier
- * @format: possible format specifier
- * Return: pointer to valid function or NULL
+ * _printf - prints data
+ * @format: formatted string to be print
+ * Return: number of characters
  */
 
-int (*check_specifiers(const char *format))(va_list)
+int _printf(char *format, ...)
 {
-	int i = 0;
-	print_t p[] = {
-		{"c", print_c},
-		{"s", print_s},
-		{"i", print_i},
-		{"d", print_d},
-		{"b", print_b},
-		{"u", print_u},
-		{"o", print_o},
-		{"x", print_x},
-		{"X", print_X},
-		{"p", print_p},
-		{"S", print_S},
-		{"r", print_r},
-		{"R", print_R},
-		{NULL, NULL}
-	};
-
-	for (; p[i].t != NULL; i++)
-	{
-		if (*(p[i].t) == *format)
-		{
-			break;
-		}
-	}
-	return (p[i].f);
-}
-
-/**
- * _printf - prints anything
- * @format: list of argument types passed to the function
- * Return: number of characters printed
- */
-
-int _printf(const char *format, ...)
-{
-	unsigned int i = 0, count = 0;
+	int count = 0, (*printtype)(char *, va_list);
+	char t[3];
 	va_list valist;
-	int (*f)(va_list);
 
 	if (format == NULL)
 		return (-1);
-
+	t[2] = '\0';
 	va_start(valist, format);
-	while (format && format[i])
+	_putchar(-1);
+	while (format[0])
 	{
-		if (format[i] != '%')
+		if (format[0] == '%')
 		{
-			_putchar(format[i]);
-			count++;
-			i++;
-			continue;
-		}
-		else
-		{
-			if (format[i + 1] == '%')
+			printtype = specifier(format);
+			if (printtype)
 			{
-				_putchar('%');
-				count++;
-				i += 2;
-				continue;
+				t[0] = '%';
+				t[1] = format[1];
+				count += printtype(t, valist);
+			}
+			else if (format[1] != '\0')
+			{
+				count += _putchar('%');
+				count += _putchar(format[1]);
 			}
 			else
 			{
-				f = check_specifiers(&format[i + 1]);
-				if (f == NULL)
-					return (-1);
-				i += 2;
-				count += f(valist);
-				continue;
+				count += _putchar('%');
+				break;
 			}
+			format += 2;
 		}
-		i++;
+		else
+		{
+			count += _putchar(format[0]);
+			format++;
+		}
 	}
-	va_end(valist);
+	_putchar(-2);
 	return (count);
 }
