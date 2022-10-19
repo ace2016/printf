@@ -22,6 +22,8 @@ int (*specifier(char *format))(char *format, va_list)
 		{"%x", prhex},
 		{"%X", prHEX},
 		{"%o", proct},
+		{"%p", printadr},
+		{"%R", print_R},
 		{NULL, NULL}
 	};
 
